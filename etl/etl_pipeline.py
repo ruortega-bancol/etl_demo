@@ -1,6 +1,6 @@
 import duckdb
 import pandas as pd
-RAW_PATH = "C:/GIT_repos/etl_demo/data/sales_raw.csv"
+RAW_PATH = "/data/sales_raw.csv"
 DB_PATH = "analytics.duckdb"
 TABLE = "sales"
 
