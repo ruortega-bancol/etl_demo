@@ -15,8 +15,11 @@ def transform(df: pd.DataFrame) -> pd.DataFrame:
           .drop_duplicates(subset=["id"], keep="last")
           .assign(ts=lambda d: pd.to_datetime(d["timestamp"], utc=True))
           )
+    # -- Política 0 nulos (elige una):
+    # A) Descartar filas con price nulo:
+    df = df[df["price"].notna()].copy()
     # Reglas de calidad (hard-fail):
-    assert df["price"].isna().mean() < 0.05, ">5% de price nulo"
+    assert df["price"].isna().sum() == 0, "price no debe tener nulos"
     assert (df["qty"] > 0).all(), "qty inválido"
     assert df["id"].is_unique, "id no es único"
     return df
